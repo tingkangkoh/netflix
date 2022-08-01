@@ -75,8 +75,6 @@ app.put("/api/users/:id", (request, response) => {
   const id = Number(request.params.id);
   let user = users.find((user) => user.id === id);
   let mediaFound = user.media.find((media) => {
-    console.log("media", typeof media, media);
-    console.log("newMedia", typeof newMedia, newMedia);
     return media.id === newMedia.id;
   });
 
