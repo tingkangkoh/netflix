@@ -41,12 +41,6 @@ app.get("/api/users/:id", (request, response) => {
   user ? response.json(user) : response.status(404).end();
 });
 
-// app.delete("/api/users/:id", (request, response) => {
-//   const id = Number(request.params.id);
-//   users = users.filter((user) => user.id !== id);
-//   response.status(204).end();
-// });
-
 const generateId = () => {
   const maxId = users.length > 0 ? Math.max(...users.map((n) => n.id)) : 0;
   return maxId + 1;
