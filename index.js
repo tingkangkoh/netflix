@@ -1,31 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
 app.use(cors());
 app.use(express.static("build"));
+const User = require("./models/user");
 
 app.use(express.json());
-let users = [
-  {
-    id: 1,
-    name: "John",
-    media: [
-      { id: 507086, type: "movie" },
-      { id: 725201, type: "movie" },
-      { id: 756999, type: "movie" },
-    ],
-  },
-  {
-    id: 2,
-    name: "Alice",
-    media: [{ id: 549, type: "movie" }],
-  },
-  {
-    id: 3,
-    name: "Patrick",
-    media: [{ id: 2744, type: "movie" }],
-  },
-];
 
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");
@@ -36,9 +17,12 @@ app.get("/api/users", (request, response) => {
 });
 
 app.get("/api/users/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const user = users.find((user) => user.id === id);
-  user ? response.json(user) : response.status(404).end();
+  // const id = Number(request.params.id);
+  // const user = users.find((user) => user.id === id);
+  // user ? response.json(user) : response.status(404).end();
+  User.findById(request.params.id).then((user) => {
+    response.json(user);
+  });
 });
 
 const generateId = () => {
@@ -60,8 +44,9 @@ app.post("/api/users", (request, response) => {
     media: [...body.media],
   };
 
-  users = users.concat(user);
-  response.json(user);
+  user.save().then((savedUser) => {
+    response.json(savedUser);
+  });
 });
 
 app.put("/api/users/:id", (request, response) => {
@@ -87,7 +72,7 @@ app.delete("/api/users/:id", (request, response) => {
   user.media = user.media.filter((item) => item.id !== media);
   response.json(user.media);
 });
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server runnign on port ${PORT}`);
 });
