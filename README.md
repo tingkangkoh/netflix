@@ -1,18 +1,18 @@
-#Netflix Clone
+# Netflix Clone
 
 An clone of the Netflix website built with React, JavaScript, and CSS.
 
-#Project Screen Shot(s)
+# Project Screen Shot(s)
 
-#Installation and Setup Instructions
+# Installation and Setup Instructions
 
-Installation:
+## Installation:
 
 npm install
 
-To Start Server:
+## To Start Server:
 
 npm start
 
-#Reflection
+# Reflection
 
